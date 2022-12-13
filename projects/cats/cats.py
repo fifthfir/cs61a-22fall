@@ -190,7 +190,19 @@ def final_diff(start, goal, limit):
 def report_progress(typed, prompt, user_id, send):
     """Send a report of your id and progress so far to the multiplayer server."""
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    i, count = 0, 0
+    while i in range(len(typed)):
+        if typed[i] == prompt[i]:
+            count += 1
+            i += 1
+        else:
+            break
+    progress = count / len(prompt)
+    message = {}
+    message['id'] = user_id
+    message['progress'] = progress
+    send(message)
+    return progress
     # END PROBLEM 8
 
 
@@ -216,7 +228,15 @@ def time_per_word(times_per_player, words):
         words: a list of words, in the order they are typed.
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    times = []
+    for i in range(len(times_per_player)):
+        time_i = []
+        for j in range(len(times_per_player[i]) - 1):
+            time = times_per_player[i][j + 1] - times_per_player[i][j]
+            time_i.append(time)
+        times.append(time_i)
+    result = game(words, times)
+    return result
     # END PROBLEM 9
 
 
@@ -231,7 +251,26 @@ def fastest_words(game):
     player_indices = range(len(all_times(game)))  # contains an *index* for each player
     word_indices = range(len(all_words(game)))    # contains an *index* for each word
     # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"
+
+    result = []
+    for p in player_indices:
+        result.append([])
+    for i in word_indices:
+        fastest_time = 100
+        for j in player_indices:
+            if time(game, j, i) < fastest_time:
+                fastest_player = j
+                fastest_time = time(game, j, i)
+        result[fastest_player].append(word_at(game, i))
+
+    return result
+
+    
+
+        
+
+
+
     # END PROBLEM 10
 
 

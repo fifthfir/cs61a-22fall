@@ -7,3 +7,4 @@
 'check_abstraction-correct', (3072, 70)
 'coords-correct', (3584, 70)
 'riffle-correct', (4096, 70)
+'build_successors_table-correct', (4608, 70)
